@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-- Metadados básicos para SEO e responsividade -->
+    <title>The Bear - Uma Série de Sucesso</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Site sobre a série The Bear, com informações sobre sinopse, elenco, temporadas e críticas">
+    <meta name="keywords" content="The Bear, série, FX, Hulu, Jeremy Allen White, Carmy, Chicago, gastronomia">
+    <meta name="author" content="Desenvolvedor Web">
+    
+    <style>
+        /**
+         * Sistema de variáveis CSS para facilitar a troca de cores e implementação do modo escuro
+         * Usando a abordagem de temas com variáveis CSS para permitir a alternância entre modo claro e escuro
+         */
+        :root {
+            /* Cores no modo claro - Paleta inspirada na estética da série */
+            --primary-color: #1a2639; /* Azul escuro para elementos principais */
+            --secondary-color: #c24d2c; /* Laranja avermelhado para destaques - cor da cozinha */
+            --background-color: #f9f9f9; /* Fundo claro neutro */
+            --text-color: #333; /* Texto escuro para boa legibilidade */
+            --header-bg: #c24d2c; /* Header com cor quente remetendo à cozinha */
+            --header-text: #fff; /* Texto claro para contraste no header */
+            --nav-bg: #1a2639; /* Navbar escura para destaque */
+            --nav-text: #fff; /* Texto claro para contraste na navbar */
+            --nav-hover-bg: #f3a950; /* Cor de hover amarelada remetendo à comida */
+            --nav-hover-text: #1a2639; /* Texto escuro para contraste no hover */
+            --aside-bg: #f1f1f1; /* Fundo levemente cinza para sidebar */
+            --main-bg: #fff; /* Fundo branco para conteúdo principal */
+            --footer-bg: #1a2639; /* Footer escuro para finalização */
+            --footer-text: #fff; /* Texto claro para contraste no footer */
+            --card-bg: #fff; /* Cards com fundo branco */
+            --card-border: #ddd; /* Borda sutil para cards */
+        }
+
+        /* 
+         * Configuração do modo escuro usando atributo data-theme
+         * Cores invertidas e ajustadas para manter contraste e legibilidade
+         */
+        [data-theme="dark"] {
+            --primary-color: #f3a950; /* Amarelo mais proeminente no modo escuro */
+            --secondary-color: #c24d2c; /* Mantém o laranja avermelhado para identidade */
+            --background-color: #121212; /* Fundo escuro padrão */
+            --text-color: #f1f1f1; /* Texto claro para contraste */
+            --header-bg: #1a2639; /* Header escuro */
+            --header-text: #f3a950; /* Texto amarelado para destaque */
+            --nav-bg: #2c3e50; /* Navbar em tom azul escuro */
+            --nav-text: #f1f1f1; /* Texto claro para contraste */
+            --nav-hover-bg: #c24d2c; /* Hover em laranja avermelhado */
+            --nav-hover-text: #fff; /* Texto branco para contraste */
+            --aside-bg: #2c3e50; /* Sidebar em tom azul escuro */
+            --main-bg: #1a2639; /* Conteúdo principal em azul mais escuro */
+            --footer-bg: #2c3e50; /* Footer em tom azul escuro */
+            --footer-text: #f1f1f1; /* Texto claro para contraste */
+            --card-bg: #2c3e50; /* Cards em tom azul escuro */
+            --card-border: #3e5771; /* Borda mais visível para cards */
+        }
+
+        /* 
+         * Estilos gerais e reset básico
+         * Box-sizing para melhor controle de dimensões
+         * Transições suaves para mudanças de tema
+         */
+        * {
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* 
+         * Estilização do header principal
+         * Uso de padding generoso e texto centralizado para destaque
+         */
+        header {
+            padding: 60px;
+            text-align: center;
+            background: var(--header-bg);
+            color: var(--header-text);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+        }
+
+        /* 
+         * Navbar com posicionamento sticky
+         * Permanece visível ao rolar a página
+         * z-index elevado para sobrepor outros elementos
+         */
+        nav {
+            display: flex;
+            background-color: var(--nav-bg);
+            position: sticky; /* Navbar sticky conforme solicitado */
+            top: 0;
+            z-index: 1000; /* Garante que a navbar fique acima de outros elementos */
+        }
+
+        nav a {
+            color: var(--nav-text);
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: var(--nav-hover-bg);
+            color: var(--nav-hover-text);
+        }
+
+        /* 
+         * Estilização do toggle switch para modo escuro
+         * Implementação visual de switch deslizante
+         */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            padding: 10px 20px;
+        }
+
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 50px;
+        }
+
+        .theme-switch input {
+            display: none; /* Esconde o checkbox padrão */
+        }
+
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+            border-radius: 34px; /* Formato arredondado para o slider */
+        }
+
+        .slider:before {
+            background-color: white;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+            border-radius: 50%; /* Círculo para o botão deslizante */
+        }
+
+        input:checked + .slider {
+            background-color: var(--secondary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px); /* Movimento do botão quando ativado */
+        }
+
+        .theme-switch-wrapper span {
+            margin-right: 10px;
+            font-size: 0.9rem;
+            color: var(--nav-text);
+        }
+
+        /* 
+         * Estilização do menu hamburger para mobile
+         * Visível apenas em telas pequenas
+         */
+        .menu-icon {
+            display: none; /* Escondido por padrão, visível apenas em mobile */
+            cursor: pointer;
+            padding: 14px 20px;
+            color: var(--nav-text);
+        }
+
+        .menu-icon .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: var(--nav-text);
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* 
+         * Layout flexível para o conteúdo principal
+         * Permite reorganização responsiva em diferentes tamanhos de tela
+         */
+        .container {  
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        /* 
+         * Sidebar/coluna lateral com 30% da largura
+         * Contém informações complementares sobre a série
+         */
+        aside {
+            flex: 30%;
+            background-color: var(--aside-bg);
+            padding: 20px;
+        }
+
+        /* 
+         * Conteúdo principal com 70% da largura
+         * Contém as seções principais do site
+         */
+        main {
+            flex: 70%;
+            background-color: var(--main-bg);
+            padding: 20px;
+        }
+
+        /* 
+         * Cards para organizar visualmente o conteúdo
+         * Bordas arredondadas e sombras para efeito de elevação
+         */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid var(--card-border);
+        }
+
+        /* 
+         * Containers para imagens com proporção fixa
+         * Usa padding-top percentual para manter proporção 16:9
+         */
+        .img-container {
+            background-color: #aaa;
+            width: 100%;
+            padding-top: 56.25%; /* Proporção 16:9 para imagens */
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .img-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Garante que a imagem cubra o container sem distorção */
+        }
+
+        /* 
+         * Footer com estilo consistente
+         * Texto centralizado e cores contrastantes
+         */
+        footer {
+            padding: 20px;
+            text-align: center;
+            background: var(--footer-bg);
+            color: var(--footer-text);
+        }
+
+        /* 
+         * Media queries para layout responsivo
+         * Reorganiza elementos em telas menores
+         */
+        @media screen and (max-width: 768px) {
+            .container, nav {   
+                flex-direction: column; /* Empilha elementos em telas pequenas */
+            }
+            
+            /* Mostra menu hamburger em telas pequenas */
+            .menu-icon {
+                display: block;
+            }
+            
+            /* Esconde links de navegação por padrão em mobile */
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+            }
+            
+            /* Mostra links quando o menu está ativo */
+            .nav-links.active {
+                display: flex;
+            }
+            
+            /* Ajusta o toggle de tema em telas pequenas */
+            .theme-switch-wrapper {
+                margin: 10px auto;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header principal com título e subtítulo da série -->
+    <header role="banner">
+        <h1>The Bear</h1>
+        <p>Uma jornada <b>intensa</b> pelo mundo da gastronomia.</p>
+    </header>
+
+    <!-- Barra de navegação sticky com links para seções e toggle de modo escuro -->
+    <nav role="navigation" aria-label="Menu principal">
+        <!-- Ícone do menu hamburger para mobile -->
+        <div class="menu-icon" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        
+        <!-- Links de navegação para as principais seções -->
+        <div class="nav-links" id="nav-links">
+            <a href="#sinopse">Sinopse</a>
+            <a href="#elenco">Elenco</a>
+            <a href="#temporadas">Temporadas</a>
+            <a href="#critica">Crítica</a>
+        </div>
+        
+        <!-- Toggle switch para alternar entre modo claro e escuro -->
+        <div class="theme-switch-wrapper">
+            <span>Modo Escuro</span>
+            <label class="theme-switch" for="checkbox" aria-label="Alternar para modo escuro">
+                <input type="checkbox" id="checkbox" role="switch" aria-checked="false" />
+                <div class="slider"></div>
+            </label>
+        </div>
+    </nav>
+
+    <!-- Container principal com layout flexível para conteúdo -->
+    <div class="container">
+        <!-- Coluna lateral com informações complementares -->
+        <aside role="complementary">
+            <section class="card" aria-labelledby="sobre-serie">
+                <h2 id="sobre-serie">Sobre a Série</h2>
+                <div class="img-container">
+                    <img src="https://images6.alphacoders.com/130/1301159.jpg" alt="Poster de The Bear">
+                </div>
+                <p>The Bear é uma série aclamada pela crítica que estreou em 2022 no FX on Hulu.</p>
+                <h3>Prêmios</h3>
+                <p>A série ganhou 21 Primetime Emmy Awards e 5 Golden Globe Awards, incluindo Melhor Série de Comédia.</p>
+                <h3>Onde Assistir</h3>
+                <p>Disponível no Hulu (EUA) e em plataformas de streaming selecionadas internacionalmente.</p>
+            </section>
+            
+            <section class="card" aria-labelledby="curiosidades">
+                <h3 id="curiosidades">Curiosidades</h3>
+                <p>Matty Matheson, que interpreta Neil Fak, é um chef da vida real.</p>
+                <p>Christopher Zucchero, que interpreta "Chi-Chi", é o proprietário real do Mr. Beef, um restaurante de Chicago.</p>
+                <p>Vários chefs famosos fazem aparições como eles mesmos na terceira temporada.</p>
+            </section>
+        </aside>
+        
+        <!-- Conteúdo principal com seções detalhadas -->
+        <main role="main">
+            <!-- Seção de sinopse -->
+            <section id="sinopse" class="card" aria-labelledby="titulo-sinopse">
+                <h2 id="titulo-sinopse">Sinopse</h2>
+                <div class="img-container">
+                    <img src="https://static.wikia.nocookie.net/the-bear/images/f/f2/CarmyPromo.jpg/revision/latest/scale-to-width-down/1200?cb=20230121110000" alt="Carmy trabalhando na cozinha">
+                </div>
+                <p>The Bear é uma série de comédia dramática e psicológica americana criada por Christopher Storer para o FX on Hulu. A série segue Carmen "Carmy" Berzatto, um chef premiado que retorna à sua cidade natal de Chicago para administrar a caótica cozinha da lanchonete de sanduíches de carne italiana de seu falecido irmão, após seu suicídio.</p>
+                <p>Carmy precisa lidar com as dívidas não resolvidas do irmão, uma cozinha deteriorada e uma equipe indisciplinada, enquanto enfrenta sua própria dor e trauma familiar.</p>
+            </section>
+            
+            <!-- Seção de elenco -->
+            <section id="elenco" class="card" aria-labelledby="titulo-elenco">
+                <h2 id="titulo-elenco">Elenco Principal</h2>
+                <div class="img-container">
+                    <img src="https://www.canalmeio.com.br/wp-content/uploads/2024/07/20240717-thebear.webp" alt="Elenco de The Bear">
+                </div>
+                <ul>
+                    <li><strong>Jeremy Allen White</strong> como Carmen "Carmy" Berzatto, um chef de cozinha premiado de Nova York</li>
+                    <li><strong>Ebon Moss-Bachrach</strong> como Richard "Richie" Jerimovich, melhor amigo de Michael e gerente de fato do restaurante</li>
+                    <li><strong>Ayo Edebiri</strong> como Sydney Adamu, uma jovem chef talentosa que se junta ao The Beef como sous-chef</li>
+                    <li><strong>Lionel Boyce</strong> como Marcus Brooks, o padeiro que se torna chef de confeitaria</li>
+                    <li><strong>Liza Colón-Zayas</strong> como Tina Marrero, uma cozinheira de linha ácida e teimosa</li>
+                    <li><strong>Abby Elliott</strong> como Natalie "Sugar" Berzatto, irmã de Carmy e Michael</li>
+                    <li><strong>Matty Matheson</strong> como Neil Fak, amigo de infância dos Berzattos e faz-tudo ocasional do restaurante</li>
+                </ul>
+            </section>
+            
+            <!-- Seção de temporadas -->
+            <section id="temporadas" class="card" aria-labelledby="titulo-temporadas">
+                <h2 id="titulo-temporadas">Temporadas e Episódios</h2>
+                <div class="img-container">
+                    <img src="https://trecobox.com.br/wp-content/uploads/2025/03/trecobox.com.br-the-bear-a-intensa-jornada-de-carmy-na-serie-de-sucesso-the-bear-1280x720.jpg" alt="Temporadas de The Bear">
+                </div>
+                <ul>
+                    <li><strong>Primeira temporada:</strong> lançada em 23 de junho de 2022 (8 episódios)</li>
+                    <li><strong>Segunda temporada:</strong> lançada em 22 de junho de 2023 (10 episódios)</li>
+                    <li><strong>Terceira temporada:</strong> lançada em 26 de junho de 2024 (10 episódios)</li>
+                    <li><strong>Quarta temporada:</strong> prevista para 25 de junho de 2025 (10 episódios)</li>
+                </ul>
+            </section>
+            
+            <!-- Seção de crítica -->
+            <section id="critica" class="card" aria-labelledby="titulo-critica">
+                <h2 id="titulo-critica">Recepção Crítica</h2>
+                <div class="img-container">
+                    <img src="https://www.rollingstone.com/wp-content/uploads/2022/07/00173c.jpg" alt="Prêmios de The Bear">
+                </div>
+                <p>A série recebeu aclamação da crítica, particularmente por sua tensão, roteiro e direção, atuações, qualidade técnica e valores de produção. Sua representação realista e precisa do ambiente de restaurantes e desenvolvimento de personagens foram destacados por críticos e pela indústria de restaurantes.</p>
+                <p>The Bear é elogiada por sua representação autêntica do mundo culinário de alta pressão, focando no legado familiar, luto e busca pela perfeição. A série é aclamada por suas representações realistas de cozinhas, performances fortes (especialmente de Jeremy Allen White) e excelente cinematografia.</p>
+                <h3>Temas Principais</h3>
+                <ul>
+                    <li>Legado familiar e expectativas</li>
+                    <li>Saúde mental e trauma</li>
+                    <li>Excelência culinária e perfeccionismo</li>
+                    <li>Dinâmicas de equipe em ambientes de alta pressão</li>
+                    <li>Luto e processo de cura</li>
+                    <li>Reinvenção pessoal e profissional</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer com informações de copyright -->
+    <footer role="contentinfo">
+        <h2>The Bear</h2>
+        <p>© 2025 - Site criado para fins educacionais</p>
+        <p>Todos os direitos sobre The Bear pertencem ao FX Networks e Hulu</p>
+    </footer>
+
+    <!-- Script para o modo escuro e menu hamburger -->
+    <script>
+        /**
+         * Script para gerenciar o toggle do modo escuro
+         * Usa localStorage para persistir a preferência do usuário entre sessões
+         */
+        const toggleSwitch = document.querySelector('#checkbox');
+        const currentTheme = localStorage.getItem('theme');
+
+        // Verifica se há um tema salvo no localStorage e aplica se existir
+        if (currentTheme) {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            
+            if (currentTheme === 'dark') {
+                toggleSwitch.checked = true;
+                toggleSwitch.setAttribute('aria-checked', 'true');
+            }
+        }
+
+        /**
+         * Função para alternar entre os temas claro e escuro
+         * Atualiza o atributo data-theme e salva a preferência no localStorage
+         */
+        function switchTheme(e) {
+            if (e.target.checked) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                toggleSwitch.setAttribute('aria-checked', 'true');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                toggleSwitch.setAttribute('aria-checked', 'false');
+            }    
+        }
+
+        // Adiciona o evento de mudança ao toggle switch
+        toggleSwitch.addEventListener('change', switchTheme, false);
+
+        /**
+         * Script para gerenciar o menu hamburger em dispositivos móveis
+         * Controla a exibição dos links de navegação
+         */
+        const menuIcon = document.querySelector('.menu-icon');
+        const navLinks = document.querySelector('.nav-links');
+
+        /**
+         * Função para alternar a visibilidade do menu mobile
+         * Atualiza classes e atributos ARIA para acessibilidade
+         */
+        function toggleMenu() {
+            const isExpanded = navLinks.classList.contains('active');
+            navLinks.classList.toggle('active');
+            
+            // Atualiza atributo ARIA para acessibilidade
+            menuIcon.setAttribute('aria-expanded', !isExpanded);
+            
+            // Anima as barras do ícone hamburger
+            const bars = document.querySelectorAll('.menu-icon .bar');
+            bars[0].classList.toggle('active');
+            bars[1].classList.toggle('active');
+            bars[2].classList.toggle('active');
+        }
+
+        // Adiciona o evento de clique ao ícone do menu
+        menuIcon.addEventListener('click', toggleMenu);
+
+        /**
+         * Adiciona evento de hover para dispositivos não-touch (desktop)
+         * Permite que o menu se expanda ao passar o mouse por cima
+         */
+        if (window.matchMedia("(min-width: 769px)").matches) {
+            menuIcon.addEventListener('mouseenter', function() {
+                navLinks.classList.add('active');
+                menuIcon.setAttribute('aria-expanded', 'true');
+            });
+            
+            // Fecha o menu quando o mouse sai da área de navegação
+            document.querySelector('nav').addEventListener('mouseleave', function() {
+                if (window.matchMedia("(min-width: 769px)").matches) {
+                    navLinks.classList.remove('active');
+                    menuIcon.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
