@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 01</title>
+    <style>
+        /* Paleta de cores */
+        :root {
+            --primary: #264653;        
+            --secondary: #2A9D8F;      
+            --accent: #E76F51;         
+            --background: #F4F1DE;     
+            --text: #22223B;           
+            --footer-bg: #1D3557;
+            --link-hover: #E9C46A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            background-color: var(--background);
+            color: var(--text);
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: var(--background);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        main {
+            display: flex;
+            min-height: calc(100vh - 180px);
+        }
+        
+        nav {
+            background-color: var(--secondary);
+            width: 30%;
+            padding: 20px;
+        }
+        
+        nav ul {
+            list-style-type: none;
+        }
+        
+        nav li {
+            margin-bottom: 15px;
+        }
+        
+        nav a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        nav a:hover {
+            color: var(--link-hover);
+        }
+        
+        article {
+            background-color: var(--background);
+            width: 70%;
+            padding: 20px;
+        }
+        
+        h2 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        p {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .image-placeholder {
+            width: 300px;
+            height: 200px;
+            background-color: var(--accent);
+            margin: 15px 0;
+        }
+        
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--background);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        /* Media query para telas menores que 400px */
+        @media (max-width: 400px) {
+            main {
+                flex-direction: column;
+            }
+            
+            nav, article {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Desenvolvimento de Software WEB</h1>
+    </header>
+    
+    <main>
+        <nav>
+            <ul>
+                <li><a href="#introducao">Introdução ao HTML</a></li>
+                <li><a href="#continuacao">Continuação do estudo</a></li>
+                <li><a href="#aprofundado">Estudo aprofundado</a></li>
+                <li><a href="#conclusao">Conclusão</a></li>
+            </ul>
+        </nav>
+        
+        <article>
+            <h2 id="introducao">Introdução ao HTML</h2>
+            <p>Pellentesque volutpat massa consequat elit ornare ultrices. Fusce id accumsan turpis. Phasellus et magna sed quam pretium elementum non imperdiet diam. Praesent lacus est, maximus sit amet diam ac, fringilla malesuada ante. Cras tortor erat, luctus eu ipsum a, imperdiet tincidunt odio. Suspendisse dapibus, lacus id imperdiet fringilla, felis felis molestie nibh, quis rutrum enim nisi a odio. Phasellus ornare posuere odio eu semper. Morbi gravida, tortor eu dapibus rutrum, ipsum urna hendrerit mi, eget malesuada nisi ex ac turpis. Nullam at nisl non diam elementum egestas. Praesent iaculis, felis quis faucibus venenatis, metus lectus pharetra metus, id hendrerit arcu elit dignissim odio. Maecenas at magna blandit, vehicula turpis non, commodo mi.</p>
+            <div class="image-placeholder"></div>
+
+            <h2 id="continuacao">Continuação do Estudo</h2>
+            <p>Cras quis nibh gravida, consequat odio nec, dictum sapien. Nulla tempus massa et leo molestie placerat. Praesent eget metus nisl. Aliquam erat volutpat. Mauris turpis turpis, viverra id nibh ut, ornare viverra orci. Phasellus eu felis consectetur, feugiat massa nec, malesuada magna. Suspendisse potenti. Mauris finibus sit amet ante sed aliquet. Quisque lacinia odio massa, sit amet efficitur dui bibendum viverra. Quisque finibus mauris ac interdum pretium. Maecenas pretium mauris a diam varius, id dapibus magna feugiat. Sed mattis eu nulla sit amet eleifend. Duis facilisis nec nisi a vestibulum.</p>
+            <div class="image-placeholder"></div>
+
+            <h2 id="aprofundado">Estudo aprofundado</h2>
+            <p>Aenean in ligula a enim facilisis tincidunt. Sed sed felis nec erat eleifend aliquet. Donec ac dolor id quam facilisis convallis. In hac habitasse platea dictumst. Morbi non libero at est efficitur sodales. Suspendisse potenti. Quisque euismod, justo in facilisis commodo, augue odio interdum nunc, vel tincidunt leo enim nec nisi. Sed ut erat a augue finibus lacinia. Nulla facilisi. Proin ac ligula id ex varius fringilla.</p>
+            <div class="image-placeholder"></div>
+
+
+            <h2 id="conclusao">Conclusão</h2>
+            <p>Integer sed velit non est efficitur faucibus. Maecenas vel dui a enim semper congue. Donec sed massa in sem convallis gravida. Suspendisse potenti. Curabitur in nunc et arcu consectetur aliquet. Nullam at felis nec odio eleifend bibendum.</p>
+            <div class="image-placeholder"></div>
+        </article>
+    </main>
+    
+    <footer>
+        <p>vitornayann@alu.ufc.br</p>
+        <p>2025.1</p>
+        <p>Todos os direitos reservados</p>
+    </footer>
+</body>
+</html>
